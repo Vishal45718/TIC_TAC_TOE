@@ -41,7 +41,10 @@ pair<int, int> get_player_move() {
 }
 
 void switch_turn(char &current_player) {
-    current_player = (current_player == 'X') ? 'O' : 'X';
+    if(current_player == 'X')
+        current_player = 'O';
+    else
+        current_player = 'X';
 }
 
 bool update_board(int row, int col, char board[SIZE][SIZE], char current_player) {
