@@ -1,97 +1,114 @@
-#include <SDL2/SDL.h>
 #include <iostream>
-#include <cmath>
+#include <utility>
+#include <fstream>
+#include <limits>
+using namespace std;
 
-const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 600;
-const int CELL_SIZE = 200;
+const int SIZE = 3;
 
-SDL_Window* window = nullptr;
-SDL_Renderer* renderer = nullptr;
-char board[3][3];
-bool running = true;
-char currentPlayer = 'X';
-char winner = ' ';
-bool gameOver = false;
-SDL_Rect replayButton = {200, 500, 200, 50};
-
-void clearBoard() {
-    for (int i = 0; i < 3; ++i)
-        for (int j = 0; j < 3; ++j)
+void intialize_board(char board[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++)
+        for (int j = 0; j < SIZE; j++)
             board[i][j] = ' ';
-    currentPlayer = 'X';
-    winner = ' ';
-    gameOver = false;
 }
 
-void drawGrid() {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    for (int i = 1; i <= 2; ++i) {
-        SDL_RenderDrawLine(renderer, i * CELL_SIZE, 0, i * CELL_SIZE, SCREEN_HEIGHT);
-        SDL_RenderDrawLine(renderer, 0, i * CELL_SIZE, SCREEN_WIDTH, i * CELL_SIZE);
+void display_board(char board[SIZE][SIZE]) {
+    cout << "+----+---+---+\n";
+    for (int i = 0; i < SIZE; i++) {
+        cout << "| ";
+        for (int j = 0; j < SIZE; j++)
+            cout << board[i][j] << " | ";
+        cout << "\n";
     }
+    cout << "+---+---+---+\n";
 }
 
-void drawCircle(int cx, int cy, int radius) {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    for (int angle = 0; angle < 360; angle++) {
-        int x = cx + radius * cos(angle * M_PI / 180);
-        int y = cy + radius * sin(angle * M_PI / 180);
-        SDL_RenderDrawPoint(renderer, x, y);
-    }
-}
-
-void drawMarks() {
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            int x = j * CELL_SIZE;
-            int y = i * CELL_SIZE;
-            if (board[i][j] == 'X') {
-                SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-                SDL_RenderDrawLine(renderer, x + 40, y + 40, x + CELL_SIZE - 40, y + CELL_SIZE - 40);
-                SDL_RenderDrawLine(renderer, x + CELL_SIZE - 40, y + 40, x + 40, y + CELL_SIZE - 40);
-            } else if (board[i][j] == 'O') {
-                drawCircle(x + CELL_SIZE / 2, y + CELL_SIZE / 2, CELL_SIZE / 2 - 40);
-            }
+pair<int, int> get_player_move() {
+    int row, col;
+    bool valid_input = false;
+    while (!valid_input) {
+        cout << "Enter your move (1-3,1-3): (row column): ";
+        cin >> row >> col;
+        if (cin.fail() || row < 1 || row > 3 || col < 1 || col > 3) {
+            cout << "Invalid input. Try again.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
         }
+        valid_input = true;
     }
+    return make_pair(row, col);
 }
 
-char checkWinner() {
-    for (int i = 0; i < 3; ++i) {
-        if (board[i][0] != ' ' && board[i][0] == board[i][1] && board[i][1] == board[i][2]) return board[i][0];
-        if (board[0][i] != ' ' && board[0][i] == board[1][i] && board[1][i] == board[2][i]) return board[0][i];
-    }
-    if (board[0][0] != ' ' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) return board[0][0];
-    if (board[0][2] != ' ' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) return board[0][2];
+void switch_turn(char &current_player) {
+    current_player = (current_player == 'X') ? 'O' : 'X';
+}
+
+bool update_board(int row, int col, char board[SIZE][SIZE], char current_player) {
+    if (row < 1 || row > 3 || col < 1 || col > 3 || board[row - 1][col - 1] != ' ')
+        return false;
+    board[row - 1][col - 1] = current_player;
+    return true;
+}
+
+char check_row_win(const char board[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++)
+        if (board[i][0] != ' ' && board[i][0] == board[i][1] && board[i][1] == board[i][2])
+            return board[i][0];
     return ' ';
 }
 
-bool isBoardFull() {
-    for (int i = 0; i < 3; ++i)
-        for (int j = 0; j < 3; ++j)
+char check_column_win(const char board[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++)
+        if (board[0][i] != ' ' && board[0][i] == board[1][i] && board[1][i] == board[2][i])
+            return board[0][i];
+    return ' ';
+}
+
+char check_diagonal_win(const char board[SIZE][SIZE]) {
+    if (board[0][0] != ' ' && board[0][0] == board[1][1] && board[1][1] == board[2][2])
+        return board[0][0];
+    if (board[0][2] != ' ' && board[0][2] == board[1][1] && board[1][1] == board[2][0])
+        return board[0][2];
+    return ' ';
+}
+
+char check_win(const char board[SIZE][SIZE]) {
+    char winner = check_row_win(board);
+    if (winner == ' ') winner = check_column_win(board);
+    if (winner == ' ') winner = check_diagonal_win(board);
+    return winner;
+}
+
+bool is_board_full(const char board[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++)
+        for (int j = 0; j < SIZE; j++)
             if (board[i][j] == ' ') return false;
     return true;
 }
 
-int evaluate() {
-    char result = checkWinner();
-    if (result == 'O') return +10;
-    if (result == 'X') return -10;
+void print_draw() {
+    cout << "It's a draw!\n";
+}
+
+int evaluate(const char board[SIZE][SIZE]) {
+    char winner = check_win(board);
+    if (winner == 'O') return +10;
+    if (winner == 'X') return -10;
     return 0;
 }
 
-int minimax(bool isMax) {
-    int score = evaluate();
-    if (score == 10 || score == -10 || isBoardFull()) return score;
+int minimax(char board[SIZE][SIZE], int depth, bool isMax) {
+    int score = evaluate(board);
+    if (score == 10 || score == -10 || is_board_full(board)) return score;
 
     if (isMax) {
         int best = -1000;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 if (board[i][j] == ' ') {
                     board[i][j] = 'O';
-                    best = std::max(best, minimax(false));
+                    best = max(best, minimax(board, depth + 1, false));
                     board[i][j] = ' ';
                 }
             }
@@ -99,11 +116,11 @@ int minimax(bool isMax) {
         return best;
     } else {
         int best = 1000;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 if (board[i][j] == ' ') {
                     board[i][j] = 'X';
-                    best = std::min(best, minimax(true));
+                    best = min(best, minimax(board, depth + 1, true));
                     board[i][j] = ' ';
                 }
             }
@@ -112,97 +129,118 @@ int minimax(bool isMax) {
     }
 }
 
-void aiMove() {
+pair<int, int> get_ai_move(char board[SIZE][SIZE]) {
     int bestVal = -1000;
-    int bestRow = -1, bestCol = -1;
+    pair<int, int> bestMove = {-1, -1};
 
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
             if (board[i][j] == ' ') {
                 board[i][j] = 'O';
-                int moveVal = minimax(false);
+                int moveVal = minimax(board, 0, false);
                 board[i][j] = ' ';
                 if (moveVal > bestVal) {
+                    bestMove = {i + 1, j + 1};
                     bestVal = moveVal;
-                    bestRow = i;
-                    bestCol = j;
                 }
             }
         }
     }
-
-    board[bestRow][bestCol] = 'O';
-    winner = checkWinner();
-    if (winner != ' ' || isBoardFull()) gameOver = true;
-    currentPlayer = 'X';
+    return bestMove;
 }
 
-void handleClick(int x, int y) {
-    if (gameOver) {
-        if (x >= replayButton.x && x <= replayButton.x + replayButton.w &&
-            y >= replayButton.y && y <= replayButton.y + replayButton.h) {
-            clearBoard();
-        }
-        return;
-    }
-
-    int row = y / CELL_SIZE;
-    int col = x / CELL_SIZE;
-    if (board[row][col] == ' ') {
-        board[row][col] = 'X';
-        winner = checkWinner();
-        if (winner != ' ' || isBoardFull()) gameOver = true;
-        else {
-            currentPlayer = 'O';
-            aiMove();
-        }
+void load_scores(int &x_wins, int &o_wins, int &draws) {
+    ifstream infile("scores.txt");
+    if (infile >> x_wins >> o_wins >> draws) {
+        cout << "\nPrevious scores loaded.\n";
+    } else {
+        x_wins = o_wins = draws = 0;
     }
 }
 
-void drawTextBox(const char* text, SDL_Rect box, SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_RenderFillRect(renderer, &box);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderDrawRect(renderer, &box);
-
+void save_scores(int x_wins, int o_wins, int draws) {
+    ofstream outfile("scores.txt");
+    outfile << x_wins << " " << o_wins << " " << draws << endl;
 }
 
-int main(int argc, char* argv[]) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
-        return 1;
+int main() {
+    int x_wins = 0, o_wins = 0, draws = 0;
+    load_scores(x_wins, o_wins, draws);
+
+    int game_mode = 0;
+    while (game_mode != 1 && game_mode != 2) {
+        cout << "Choose Game Mode:\n";
+        cout << "1. Single Player (You vs AI)\n";
+        cout << "2. Two Player (Player X vs Player O)\n";
+        cout << "Enter 1 or 2: ";
+        cin >> game_mode;
+        if (cin.fail() || (game_mode != 1 && game_mode != 2)) {
+            cout << "Invalid input. Please enter 1 or 2.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
     }
 
-    window = SDL_CreateWindow("Tic Tac Toe (AI)", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    while (true) {
+        char board[SIZE][SIZE];
+        intialize_board(board);
+        char current_player = 'X';
+        char winner = ' ';
 
-    clearBoard();
+        while (true) {
+            display_board(board);
+            cout << "Current Player: " << current_player << "\n";
+            pair<int, int> player_move;
 
-    while (running) {
-        SDL_Event e;
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) running = false;
-            if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
-                handleClick(e.button.x, e.button.y);
+            if (game_mode == 1 && current_player == 'O') {
+                cout << "AI is thinking...\n";
+                player_move = get_ai_move(board);
+            } else {
+                player_move = get_player_move();
+            }
+
+            if (!update_board(player_move.first, player_move.second, board, current_player)) {
+                cout << "Invalid move. Try again.\n";
+                continue;
+            }
+
+            winner = check_win(board);
+            if (winner != ' ') {
+                display_board(board);
+                cout << "Player " << winner << " wins!\n";
+                if (winner == 'X') x_wins++;
+                else o_wins++;
+                break;
+            }
+
+            if (is_board_full(board)) {
+                display_board(board);
+                print_draw();
+                draws++;
+                break;
+            }
+
+            switch_turn(current_player);
         }
 
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderClear(renderer);
+        save_scores(x_wins, o_wins, draws);
 
-        drawGrid();
-        drawMarks();
+        cout << "\n\U0001F3C6 Scoreboard:\n";
+        cout << "Player X: " << x_wins << "\n";
+        if (game_mode == 1)
+            cout << "AI (Player O): " << o_wins << "\n";
+        else
+            cout << "Player O: " << o_wins << "\n";
+        cout << "Draws: " << draws << "\n";
 
-        if (gameOver) {
-            SDL_Color replayColor = {200, 255, 200, 255};
-            drawTextBox("Play Again", replayButton, replayColor);
+        char choice;
+        cout << "\nWould you like to play again? (y/n): ";
+        cin >> choice;
+        if (choice != 'y' && choice != 'Y') {
+            cout << "\nThanks for playing!\n";
+            break;
         }
-
-        SDL_RenderPresent(renderer);
+        system("clear");
     }
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
     return 0;
 }
