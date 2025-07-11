@@ -243,7 +243,6 @@ int main() {
             cout << "\nThanks for playing!\n";
             break;
         }
-        system("clear");
     }
     return 0;
 }
