@@ -1,14 +1,20 @@
 # README.md
 
-## Tic Tac Toe Game
+# 🎮 Tic Tac Toe with AI (Minimax)
 
-This project is a console-based implementation of the classic Tic Tac Toe game. It allows players to compete against each other or against an AI opponent that uses the minimax algorithm to make optimal moves. The game also keeps track of scores across multiple sessions.
+A console-based Tic Tac Toe game built in C++ featuring an **unbeatable AI powered by the Minimax algorithm**. The game supports both single-player (vs AI) and two-player modes, along with persistent score tracking across sessions.
+
+##  Highlights
+-  Optimal AI using Minimax (never loses)
+-  Dual modes: Player vs AI / Player vs Player
+-  Persistent score tracking using file storage
+-  Robust input validation and clean CLI interaction
 
 ### Features
 
 - Play against an AI or another player.
 - Score tracking for wins and draws.
-- User-friendly console interface.
+- Clean and intuitive command-line interface.
 - Input validation for player moves.
 
 ### Requirements
@@ -53,18 +59,27 @@ Run the compiled executable:
 - The game checks for a winner after each move and announces the result.
 - If the board is full and there is no winner, the game declares a draw.
 
-### AI Logic
+##  How the AI Works
 
-The AI opponent uses the minimax algorithm to evaluate the best possible move. It assigns scores to potential game states and chooses the move that maximizes its chances of winning while minimizing the player's chances.
+The AI uses the Minimax algorithm to evaluate all possible game states recursively. It assigns scores based on outcomes:
+
+- Win → +1  
+- Loss → -1  
+- Draw → 0  
+
+By simulating every possible move, the AI always chooses the optimal strategy, making it impossible to defeat. 
 
 ### Score Tracking
 
 The game keeps track of the number of wins for each player and the number of draws. Scores are saved to a file (`scores.txt`) and loaded at the start of each game session.
 
+## 📸 Sample Output
+*Screenshot coming soon*
+
 ### Code Overview
 
 - **Main Functions**:
-  - `initialize_board ()`: Initialises the game board.
+  - `initialize_board()`: Initialises the game board.
   - `display_board()`: Displays the current state of the board.
   - `get_player_move()`: Prompts the player for their move.
   - `update_board()`: Updates the board with the player's move.
@@ -72,7 +87,7 @@ The game keeps track of the number of wins for each player and the number of dra
   - `minimax()`: Implements the minimax algorithm for the AI's decision-making.
   - `load_scores()` and `save_scores()`: Load and save game scores.
 
-Co-authored commit test 
+ 
 ### License
 
 This project is open-source and available for modification and distribution. Enjoy playing Tic Tac Toe!
