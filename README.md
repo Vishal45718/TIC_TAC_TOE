@@ -72,7 +72,7 @@ The game keeps track of the number of wins for each player and the number of dra
   - `minimax()`: Implements the minimax algorithm for the AI's decision-making.
   - `load_scores()` and `save_scores()`: Load and save game scores.
 
-Co-authored commit test
+Co-authored commit test 
 ### License
 
 This project is open-source and available for modification and distribution. Enjoy playing Tic Tac Toe!
