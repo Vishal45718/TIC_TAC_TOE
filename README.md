@@ -64,7 +64,7 @@ The game keeps track of the number of wins for each player and the number of dra
 ### Code Overview
 
 - **Main Functions**:
-  - `intialize_board()`: Initializes the game board.
+  - `initialize_board ()`: Initialises the game board.
   - `display_board()`: Displays the current state of the board.
   - `get_player_move()`: Prompts the player for their move.
   - `update_board()`: Updates the board with the player's move.
@@ -72,6 +72,7 @@ The game keeps track of the number of wins for each player and the number of dra
   - `minimax()`: Implements the minimax algorithm for the AI's decision-making.
   - `load_scores()` and `save_scores()`: Load and save game scores.
 
+Co-authored commit test
 ### License
 
 This project is open-source and available for modification and distribution. Enjoy playing Tic Tac Toe!
