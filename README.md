@@ -44,14 +44,14 @@ No installation required! Jump right into the action straight from your browser.
 
 | Desktop View | Mobile View |
 |:---:|:---:|
-| <img src="https://github.com/Vishal45718/TIC_TAC_TOE/blob/main/mobile_UI.jpeg" alt="Desktop UI" width="400"/> | <img src="https://via.placeholder.com/300x400/111111/00FFCC?text=Mobile+UI" alt="Mobile UI" width="200"/> |
+| <img src="https://github.com/Vishal45718/TIC_TAC_TOE/blob/main/mobile_UI.jpeg" alt="Mobile UI" width="400"/> | <img src="https://github.com/Vishal45718/TIC_TAC_TOE/blob/main/Desktop_UI.jpg" alt="Desktop UI" width="200"/> |
 | *Sleek desktop layout with glowing neon accents.* | *Optimized touch controls for mobile screens.* |
 
 > *(Replace these placeholder image links with actual screenshots from your project by saving them to a `/docs` or `/assets` folder and linking them here!)*
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 This project was built entirely with vanilla web technologies to keep it lightweight and incredibly fast:
 
