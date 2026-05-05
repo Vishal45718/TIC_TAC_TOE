@@ -44,7 +44,7 @@ No installation required! Jump right into the action straight from your browser.
 
 | Desktop View | Mobile View |
 |:---:|:---:|
-| <img src="https://via.placeholder.com/600x400/111111/00FFCC?text=Desktop+Gameplay" alt="Desktop UI" width="400"/> | <img src="https://via.placeholder.com/300x400/111111/00FFCC?text=Mobile+UI" alt="Mobile UI" width="200"/> |
+| <img src="https://github.com/Vishal45718/TIC_TAC_TOE/blob/main/mobile_UI.jpeg" alt="Desktop UI" width="400"/> | <img src="https://via.placeholder.com/300x400/111111/00FFCC?text=Mobile+UI" alt="Mobile UI" width="200"/> |
 | *Sleek desktop layout with glowing neon accents.* | *Optimized touch controls for mobile screens.* |
 
 > *(Replace these placeholder image links with actual screenshots from your project by saving them to a `/docs` or `/assets` folder and linking them here!)*
