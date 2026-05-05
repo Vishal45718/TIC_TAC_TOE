@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Tic-Tac-Toe AI</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #111;
+            --accent: #00f2ff;
+            --x-color: #ff0055;
+            --o-color: #00ff9d;
+            --text: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            touch-action: manipulation;
+        }
+
+        .glass-panel {
+            background: var(--panel);
+            padding: 25px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .score-item { padding: 10px; border-radius: 12px; background: rgba(255,255,255,0.03); flex: 1; margin: 0 5px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cell:active { transform: scale(0.95); }
+        .cell.x { color: var(--x-color); text-shadow: 0 0 15px var(--x-color); }
+        .cell.o { color: var(--o-color); text-shadow: 0 0 15px var(--o-color); }
+
+        .btn {
+            background: var(--accent);
+            color: black;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            margin-top: 15px;
+        }
+
+        h1 { margin: 0 0 20px 0; font-size: 1.5rem; color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="glass-panel">
+    <h1>NEON NEXUS AI</h1>
+    
+    <div class="scoreboard">
+        <div class="score-item">X<br><span id="sX">0</span></div>
+        <div class="score-item">Draw<br><span id="sD">0</span></div>
+        <div class="score-item">O<br><span id="sO">0</span></div>
+    </div>
+
+    <div id="status" style="color: #888; font-size: 0.8rem; margin-bottom: 10px;">YOUR TURN</div>
+
+    <div class="grid" id="grid">
+        <div class="cell" onclick="handleMove(0,0)"></div>
+        <div class="cell" onclick="handleMove(0,1)"></div>
+        <div class="cell" onclick="handleMove(0,2)"></div>
+        <div class="cell" onclick="handleMove(1,0)"></div>
+        <div class="cell" onclick="handleMove(1,1)"></div>
+        <div class="cell" onclick="handleMove(1,2)"></div>
+        <div class="cell" onclick="handleMove(2,0)"></div>
+        <div class="cell" onclick="handleMove(2,1)"></div>
+        <div class="cell" onclick="handleMove(2,2)"></div>
+    </div>
+
+    <button class="btn" onclick="resetBoard()">RESET BOARD</button>
+    <button class="btn secondary-btn" id="modeBtn" onclick="toggleMode()">MODE: VS AI</button>
+</div>
+
+<script>
+    // Translated logic from normal.cpp[cite: 2]
+    let board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']];
+    let currentPlayer = 'X';
+    let gameMode = 1; // 1: AI, 2: PVP
+    let scores = JSON.parse(localStorage.getItem('tt_scores')) || {X:0, O:0, draws:0};
+
+    function updateUI() {
+        document.getElementById('sX').innerText = scores.X;
+        document.getElementById('sO').innerText = scores.O;
+        document.getElementById('sD').innerText = scores.draws;
+        localStorage.setItem('tt_scores', JSON.stringify(scores));
+        
+        const cells = document.querySelectorAll('.cell');
+        board.flat().forEach((val, i) => {
+            cells[i].innerText = val;
+            cells[i].className = 'cell ' + (val === 'X' ? 'x' : val === 'O' ? 'o' : '');
+        });
+    }
+
+    function handleMove(r, c) {
+        if (board[r][c] !== ' ') return;
+        board[r][c] = currentPlayer;
+        updateUI();
+
+        if (checkWin(board)) {
+            scores[currentPlayer]++;
+            setTimeout(() => { alert(`Player ${currentPlayer} Wins!`); resetBoard(); }, 100);
+            return;
+        }
+        if (isFull(board)) {
+            scores.draws++;
+            setTimeout(() => { alert("It's a Draw!"); resetBoard(); }, 100);
+            return;
+        }
+
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        document.getElementById('status').innerText = `PLAYER ${currentPlayer}'S TURN`;
+
+        if (gameMode === 1 && currentPlayer === 'O') {
+            document.getElementById('status').innerText = "AI THINKING...";
+            setTimeout(aiMove, 600);
+        }
+    }
+
+    // Minimax Implementation[cite: 2]
+    function aiMove() {
+        let bestVal = -1000;
+        let move = {r: -1, c: -1};
+        for (let i=0; i<3; i++) {
+            for (let j=0; j<3; j++) {
+                if (board[i][j] === ' ') {
+                    board[i][j] = 'O';
+                    let val = minimax(board, 0, false);
+                    board[i][j] = ' ';
+                    if (val > bestVal) { move = {r: i, c: j}; bestVal = val; }
+                }
+            }
+        }
+        handleMove(move.r, move.c);
+    }
+
+    function minimax(b, d, isMax) {
+        let score = evaluate(b);
+        if (score === 10 || score === -10) return score;
+        if (isFull(b)) return 0;
+        if (isMax) {
+            let best = -1000;
+            for(let i=0; i<3; i++) for(let j=0; j<3; j++) if(b[i][j] === ' ') {
+                b[i][j] = 'O'; best = Math.max(best, minimax(b, d+1, false)); b[i][j] = ' ';
+            }
+            return best;
+        } else {
+            let best = 1000;
+            for(let i=0; i<3; i++) for(let j=0; j<3; j++) if(b[i][j] === ' ') {
+                b[i][j] = 'X'; best = Math.min(best, minimax(b, d+1, true)); b[i][j] = ' ';
+            }
+            return best;
+        }
+    }
+
+    function evaluate(b) {
+        let w = checkWin(b);
+        return w === 'O' ? 10 : (w === 'X' ? -10 : 0);
+    }
+
+    function checkWin(b) {
+        for(let i=0; i<3; i++) {
+            if(b[i][0] !== ' ' && b[i][0] === b[i][1] && b[i][1] === b[i][2]) return b[i][0];
+            if(b[0][i] !== ' ' && b[0][i] === b[1][i] && b[1][i] === b[2][i]) return b[0][i];
+        }
+        if(b[0][0] !== ' ' && b[0][0] === b[1][1] && b[1][1] === b[2][2]) return b[0][0];
+        if(b[0][2] !== ' ' && b[0][2] === b[1][1] && b[1][1] === b[2][0]) return b[0][2];
+        return null;
+    }
+
+    function isFull(b) { return b.every(row => row.every(c => c !== ' ')); }
+    function resetBoard() { board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]; currentPlayer = 'X'; updateUI(); }
+    function toggleMode() { gameMode = gameMode === 1 ? 2 : 1; document.getElementById('modeBtn').innerText = `MODE: ${gameMode === 1 ? 'VS AI' : 'PVP'}`; resetBoard(); }
+    updateUI();
+</script>
+</body>
+</html>
