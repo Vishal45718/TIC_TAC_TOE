@@ -5,7 +5,7 @@
   
   **A classic game reimagined with a vibrant neon aesthetic and an unbeatable Minimax AI.**
 
-  [![Play Online](https://img.shields.io/badge/Play_Online-GitHub_Pages-2ea44f?style=for-the-badge&logo=github)](https://yourusername.github.io/your-repo-name)
+  [![Play Online](https://img.shields.io/badge/Play_Online-GitHub_Pages-2ea44f?style=for-the-badge&logo=github)](https://vishal45718.github.io/TIC_TAC_TOE/)
 
   [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
   [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
