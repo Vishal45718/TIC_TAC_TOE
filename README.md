@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://via.placeholder.com/150x150/111111/00FFCC?text=Tic-Tac-Toe" alt="Tic-Tac-Toe Logo" width="120" />
 
-  # 🕹️ Neon Tic-Tac-Toe
+  #  Neon Tic-Tac-Toe
   
   **A classic game reimagined with a vibrant neon aesthetic and an unbeatable Minimax AI.**
 
@@ -16,13 +16,13 @@
 
 ---
 
-## 📖 Description
+##  Description
 
-Welcome to **Neon Tic-Tac-Toe**! This isn't your everyday pen-and-paper game. It's a modernized, fully responsive web application featuring a stunning cyberpunk-inspired UI, smooth animations, and an AI opponent that will push your strategic thinking to the limit. 
+Welcome to **Neon Tic-Tac-Toe**! This isn't your everyday pen-and-paper game. It's a modernised, fully responsive web application featuring a stunning cyberpunk-inspired UI, smooth animations, and an AI opponent that will push your strategic thinking to the limit. 
 
-Whether you want a casual match or a serious challenge against our perfectly optimized Minimax algorithm, this game has you covered!
+Whether you want a casual match or a serious challenge against our perfectly optimised Minimax algorithm, this game has you covered!
 
-## 🚀 Live Demo
+##  Live Demo
 
 No installation required! Jump right into the action straight from your browser.
 
@@ -30,17 +30,17 @@ No installation required! Jump right into the action straight from your browser.
 
 ---
 
-## ✨ Features
+##  Features
 
-- **🧠 Unbeatable AI:** Powered by the legendary [Minimax algorithm](https://en.wikipedia.org/wiki/Minimax). On the highest difficulty, the AI will perfectly calculate every possible move to ensure it *never* loses.
-- **🎚️ 3 Difficulty Levels:** Choose your challenge! Play on Easy, Medium, or face the Impossible mode.
-- **🎨 Neon-Themed UI:** A beautifully crafted, visually striking interface with glowing elements and smooth hover effects.
-- **📱 Fully Responsive:** Carefully designed to look and feel great on any device—from ultra-wide monitors to mobile phones.
-- **💾 Persistent Scores:** Your win/loss/tie records are automatically saved to your browser's local storage. Come back anytime and pick up right where you left off!
+- ** Unbeatable AI:** Powered by the legendary [Minimax algorithm](https://en.wikipedia.org/wiki/Minimax). On the greatest difficulty, the AI will perfectly calculate every possible move to ensure it *never* loses.
+- ** 3 Difficulty Levels:** Choose your challenge! Play on Easy, Medium, or face the Impossible mode.
+- ** Neon-Themed UI:** A beautifully crafted, visually striking interface with glowing elements and smooth hover effects.
+- ** Fully Responsive:** Carefully designed to look and feel great on any device—from ultra-wide monitors to mobile phones.
+- ** Persistent Scores:** Your win/loss/tie records are automatically saved to your browser's local storage. Come back anytime and pick up right where you left off!
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 | Desktop View | Mobile View |
 |:---:|:---:|
@@ -61,9 +61,9 @@ This project was built entirely with vanilla web technologies to keep it lightwe
 
 ---
 
-## 🎮 How to Play
+##  How to Play
 
-1. **Open the Game:** Click the [Live Demo](https://yourusername.github.io/your-repo-name) link.
+1. **Open the Game:** Click the [Live Demo](https://vishal45718.github.io/TIC_TAC_TOE/) link.
 2. **Choose Difficulty:** Select your preferred AI difficulty from the settings menu.
 3. **Make Your Move:** You play as **X**. Click on any empty square to place your mark.
 4. **Win the Game:** Get 3 of your marks in a row (horizontally, vertically, or diagonally) before the AI does!
@@ -71,7 +71,7 @@ This project was built entirely with vanilla web technologies to keep it lightwe
 
 ---
 
-## 💡 Suggestions for Further Improvement
+##  Suggestions for Further Improvement
 
 To make your project stand out even more to recruiters, consider implementing the following ideas:
 
@@ -83,9 +83,9 @@ To make your project stand out even more to recruiters, consider implementing th
 
 ---
 
-## 🤝 Credits
+##  Credits
 
-- Designed and developed by **[Your Name]** - [Your GitHub Profile](https://github.com/yourusername)
+- Designed and developed by **[Varukolu Vishal]** - [Your GitHub Profile](https://github.com/Vishal45718)
 - Minimax Algorithm reference: [GeeksforGeeks](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/)
 
 If you liked this project, please consider giving it a ⭐!
