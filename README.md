@@ -1,7 +1,4 @@
-<div align="center">
-  <img src="https://via.placeholder.com/150x150/111111/00FFCC?text=Tic-Tac-Toe" alt="Tic-Tac-Toe Logo" width="120" />
-
-  #  Neon Tic-Tac-Toe
+  #   Tic-Tac-Toe
   
   **A classic game reimagined with a vibrant neon aesthetic and an unbeatable Minimax AI.**
 
