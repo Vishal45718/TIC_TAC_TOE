@@ -1,93 +1,91 @@
-# README.md
+<div align="center">
+  <img src="https://via.placeholder.com/150x150/111111/00FFCC?text=Tic-Tac-Toe" alt="Tic-Tac-Toe Logo" width="120" />
 
-# 🎮 Tic Tac Toe with AI (Minimax)
+  # 🕹️ Neon Tic-Tac-Toe
+  
+  **A classic game reimagined with a vibrant neon aesthetic and an unbeatable Minimax AI.**
 
-A console-based Tic Tac Toe game built in C++ featuring an **unbeatable AI powered by the Minimax algorithm**. The game supports both single-player (vs AI) and two-player modes, along with persistent score tracking across sessions.
+  [![Play Online](https://img.shields.io/badge/Play_Online-GitHub_Pages-2ea44f?style=for-the-badge&logo=github)](https://yourusername.github.io/your-repo-name)
 
-##  Highlights
--  Optimal AI using Minimax (never loses)
--  Dual modes: Player vs AI / Player vs Player
--  Persistent score tracking using file storage
--  Robust input validation and clean CLI interaction
+  [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+  [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-### Features
+</div>
 
-- Play against an AI or another player.
-- Score tracking for wins and draws.
-- Clean and intuitive command-line interface.
-- Input validation for player moves.
+---
 
-### Requirements
+## 📖 Description
 
-- C++ compiler (e.g., g++, clang++)
-- Standard C++ library
+Welcome to **Neon Tic-Tac-Toe**! This isn't your everyday pen-and-paper game. It's a modernized, fully responsive web application featuring a stunning cyberpunk-inspired UI, smooth animations, and an AI opponent that will push your strategic thinking to the limit. 
 
-### Installation
+Whether you want a casual match or a serious challenge against our perfectly optimized Minimax algorithm, this game has you covered!
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
+## 🚀 Live Demo
 
-2. **Compile the code**:
-   Use the following command to compile the program:
-   ```bash
-   g++ -o tic_tac_toe normal.cpp
-   ```
+No installation required! Jump right into the action straight from your browser.
 
-### Usage
+👉 **[Play the Live Demo Here](https://yourusername.github.io/your-repo-name)** 👈
 
-Run the compiled executable:
-```bash
-./tic_tac_toe
-```
+---
 
-### Controls
+## ✨ Features
 
-- Choose the game mode:
-  - **1**: Single Player (You vs AI)
-  - **2**: Two Player (Player X vs Player O)
-- Enter your move in the format `row column` (e.g., `1 2` for row 1, column 2).
-- The game will display the current board after each move.
-- After the game ends, you can choose to play again or exit.
+- **🧠 Unbeatable AI:** Powered by the legendary [Minimax algorithm](https://en.wikipedia.org/wiki/Minimax). On the highest difficulty, the AI will perfectly calculate every possible move to ensure it *never* loses.
+- **🎚️ 3 Difficulty Levels:** Choose your challenge! Play on Easy, Medium, or face the Impossible mode.
+- **🎨 Neon-Themed UI:** A beautifully crafted, visually striking interface with glowing elements and smooth hover effects.
+- **📱 Fully Responsive:** Carefully designed to look and feel great on any device—from ultra-wide monitors to mobile phones.
+- **💾 Persistent Scores:** Your win/loss/tie records are automatically saved to your browser's local storage. Come back anytime and pick up right where you left off!
 
-### Game Logic
+---
 
-- The game board is represented as a 3x3 grid.
-- Players take turns to place their marks (X or O) on the board.
-- The game checks for a winner after each move and announces the result.
-- If the board is full and there is no winner, the game declares a draw.
+## 📸 Screenshots
 
-##  How the AI Works
+| Desktop View | Mobile View |
+|:---:|:---:|
+| <img src="https://via.placeholder.com/600x400/111111/00FFCC?text=Desktop+Gameplay" alt="Desktop UI" width="400"/> | <img src="https://via.placeholder.com/300x400/111111/00FFCC?text=Mobile+UI" alt="Mobile UI" width="200"/> |
+| *Sleek desktop layout with glowing neon accents.* | *Optimized touch controls for mobile screens.* |
 
-The AI uses the Minimax algorithm to evaluate all possible game states recursively. It assigns scores based on outcomes:
+> *(Replace these placeholder image links with actual screenshots from your project by saving them to a `/docs` or `/assets` folder and linking them here!)*
 
-- Win → +1  
-- Loss → -1  
-- Draw → 0  
+---
 
-By simulating every possible move, the AI always chooses the optimal strategy, making it impossible to defeat. 
+## 🛠️ Tech Stack
 
-### Score Tracking
+This project was built entirely with vanilla web technologies to keep it lightweight and incredibly fast:
 
-The game keeps track of the number of wins for each player and the number of draws. Scores are saved to a file (`scores.txt`) and loaded at the start of each game session.
+- **HTML5:** Semantic structuring for accessibility and layout.
+- **CSS3:** Custom properties (variables), Flexbox/Grid for layout, and advanced glowing animations without relying on heavy frameworks.
+- **Vanilla JavaScript (ES6+):** Handling game logic, DOM manipulation, Minimax AI calculations, and `localStorage` integration.
 
-## 📸 Sample Output
-*Screenshot coming soon*
+---
 
-### Code Overview
+## 🎮 How to Play
 
-- **Main Functions**:
-  - `initialize_board()`: Initialises the game board.
-  - `display_board()`: Displays the current state of the board.
-  - `get_player_move()`: Prompts the player for their move.
-  - `update_board()`: Updates the board with the player's move.
-  - `check_win()`: Checks for a winner.
-  - `minimax()`: Implements the minimax algorithm for the AI's decision-making.
-  - `load_scores()` and `save_scores()`: Load and save game scores.
+1. **Open the Game:** Click the [Live Demo](https://yourusername.github.io/your-repo-name) link.
+2. **Choose Difficulty:** Select your preferred AI difficulty from the settings menu.
+3. **Make Your Move:** You play as **X**. Click on any empty square to place your mark.
+4. **Win the Game:** Get 3 of your marks in a row (horizontally, vertically, or diagonally) before the AI does!
+5. **Reset & Replay:** The game automatically detects wins, losses, or ties. Click "Play Again" to start a new round.
 
- 
-### License
+---
 
-This project is open-source and available for modification and distribution. Enjoy playing Tic Tac Toe!
+## 💡 Suggestions for Further Improvement
+
+To make your project stand out even more to recruiters, consider implementing the following ideas:
+
+- **Organized Folder Structure:** Group your code logically. e.g., `src/css/`, `src/js/`, `assets/images/`, `assets/audio/`.
+- **Code Quality Badges:** Integrate tools like ESLint or Prettier and add their badges to the top of the README.
+- **Audio Feedback:** Add subtle, satisfying sound effects for clicking, winning, or losing (ensure they can be toggled on/off).
+- **Two-Player Mode:** Add a local hot-seat mode where two humans can play on the same device.
+- **Lighthouse Score:** Run a Chrome Lighthouse audit. If you score 100 on Performance/Accessibility, add a screenshot of your Lighthouse report to boast about your clean code!
+
+---
+
+## 🤝 Credits
+
+- Designed and developed by **[Your Name]** - [Your GitHub Profile](https://github.com/yourusername)
+- Minimax Algorithm reference: [GeeksforGeeks](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/)
+
+If you liked this project, please consider giving it a ⭐!
