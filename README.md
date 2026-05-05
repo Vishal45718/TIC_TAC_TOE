@@ -85,7 +85,7 @@ To make your project stand out even more to recruiters, consider implementing th
 
 ##  Credits
 
-- Designed and developed by **[Varukolu Vishal]** - [Your GitHub Profile](https://github.com/Vishal45718)
+- Designed and developed by **[Varukolu Vishal]** - [Profile](https://github.com/Vishal45718)
 - Minimax Algorithm reference: [GeeksforGeeks](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/)
 
 If you liked this project, please consider giving it a ⭐!
